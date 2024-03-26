@@ -1316,6 +1316,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersInParty:
   - {fileID: 1012860564}
+  - {fileID: 934799548}
+  - {fileID: 583579866}
+  - {fileID: 1017226937}
   cameraObject: {fileID: 578525899}
 --- !u!1 &1899381055
 GameObject:
