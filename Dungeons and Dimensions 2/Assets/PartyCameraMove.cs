@@ -17,13 +17,16 @@ public class PartyCameraMove : MonoBehaviour
 
    void Update()
    {
-    
+    if(Input.GetKeyDown(KeyCode.X))
+    {
+        ChangeCharaCamera();
+    }
    }
 
 
     public void ChangeCharaCamera()
     {
-        if(charaTurn > charactersInParty.Count - 1)
+        if(charaTurn < charactersInParty.Count - 1)
         {
             charaTurn += 1;
         }
@@ -31,6 +34,8 @@ public class PartyCameraMove : MonoBehaviour
         {
             charaTurn = 0;
         }
+
+        Debug.Log($"{charaTurn}");
 
         cameraObject.Follow = charactersInParty[charaTurn].transform;
         cameraObject.LookAt = charactersInParty[charaTurn].transform;
