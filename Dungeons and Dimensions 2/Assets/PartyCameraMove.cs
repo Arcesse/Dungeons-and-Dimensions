@@ -38,6 +38,6 @@ public class PartyCameraMove : MonoBehaviour
         Debug.Log($"{charaTurn}");
 
         cameraObject.Follow = charactersInParty[charaTurn].transform;
-        cameraObject.LookAt = charactersInParty[charaTurn].transform;
+        //cameraObject.LookAt = charactersInParty[charaTurn].transform;
     }
 }
