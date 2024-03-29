@@ -8,11 +8,35 @@ public class PartyCameraMove : MonoBehaviour
    [SerializeField] List<GameObject> charactersInParty;
    [SerializeField] CinemachineVirtualCamera cameraObject;
 
+   [SerializeField] GameObject enemiesHolder;
+   private List<Enemy> enemies;
+   public GameObject[] enemyObjects;
+
    private int charaTurn;
+   private int lockedEnemy;
 
    void Start()
    {
+    if(enemies == null)
+    {
+        enemies = new List<Enemy>();
+    }
+
     charaTurn = 0;
+    lockedEnemy = 0;
+
+    enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+    if(enemyObjects.Length != 0)
+    {
+        foreach(GameObject enemyGo in enemyObjects)
+        {
+            Enemy e = enemyGo.GetComponent<Enemy>();
+            enemies.Add(e);
+        }
+    }
+
+    cameraObject.Follow = charactersInParty[0].transform;
+    //cameraObject.LookAt = enemyObjects[0].transform;
    }
 
    void Update()
@@ -20,6 +44,11 @@ public class PartyCameraMove : MonoBehaviour
     if(Input.GetKeyDown(KeyCode.X))
     {
         ChangeCharaCamera();
+    }
+
+    if(Input.GetKeyDown(KeyCode.Q))
+    {
+        ChangeEnemyLookAt();
     }
    }
 
@@ -38,6 +67,21 @@ public class PartyCameraMove : MonoBehaviour
         Debug.Log($"{charaTurn}");
 
         cameraObject.Follow = charactersInParty[charaTurn].transform;
-        //cameraObject.LookAt = charactersInParty[charaTurn].transform;
+    }
+
+    public void ChangeEnemyLookAt()
+    {
+        if(lockedEnemy < enemyObjects.Length - 1)
+        {
+            lockedEnemy += 1;
+        }
+        else
+        {
+            lockedEnemy = 0;
+        }
+
+        Debug.Log($"{lockedEnemy}");
+
+        cameraObject.LookAt = enemyObjects[lockedEnemy].transform;
     }
 }
